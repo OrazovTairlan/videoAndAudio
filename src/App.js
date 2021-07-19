@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import "./App.css";
 
+
 class App extends Component {
     state = {
         screenX: "",
@@ -139,7 +140,6 @@ class App extends Component {
                         console.log("start");
                         mediaRecorder.start();
                     };
-                    document.querySelector(".start").addEventListener("click", start);
 
                     const stop = () => {
                         return new Promise(resolve => {
@@ -160,7 +160,6 @@ class App extends Component {
                             });
                         });
                     };
-                    document.querySelector(".stop").addEventListener("click", () => mediaRecorder.stop());
 
                     resolve({start, stop});
                 });
@@ -190,58 +189,93 @@ class App extends Component {
     }
 
     async componentDidMount() {
+        const images = [];
         const data = [];
-        // document.addEventListener("mousemove", (e) => {
-        //     this.setState({screenX: e.screenX, screenY: e.screenY, mouseIsMoving: true});
-        //     setTimeout(() => this.setState({mouseIsMoving: false}), 5000);
-        // });
-        document.addEventListener("visibilitychange", function () {
-            if (document.hidden) {
-                console.log('Вкладка не активна');
-            } else {
-                console.log('Вкладка активна');
-            }
-        });
-        window.addEventListener("resize", function () {
-            console.log("resized");
-        });
-        let mya = true; //по умолчанию вкладка активна
-        let a = 0;
-        setInterval(function () {
-            if (!mya) return; //если не активная вкладка, ничего не делаем
-            a++; //счетчик секунд
-            console.log(a);
-            // document.querySelector('.onlineuser').innerHTML = a;
-        }, 1000)
-        window.onfocus = function () {
-            console.log('Вкладка активна');
-        }
-
-        window.onblur = function () {
-            mya = false;
-            console.log('Вкладка не активна');
-        }
-
-
+        console.log(document.querySelector(".something"));
         if (this.hasGetUserMedia()) {
-            const recorder = await this.recordAudio(data);
-            this.setState({recorder: recorder});
-            // recorder.start();
-            // await this.sleep(5000);
-            // const audio = await recorder.stop();
-            // audio.play();
-            // console.log(data);
-        } else {
-            alert('getUserMedia() is not supported in your browser');
+            const stream = await navigator.mediaDevices.getUserMedia({audio: true, video:true});
+            function record_and_send(stream) {
+                const recorder = new MediaRecorder(stream);
+                const chunks = [];
+                recorder.ondataavailable = e => chunks.push(e.data);
+                recorder.onstop = e => data.push(new Blob(chunks));
+                setTimeout(()=> recorder.stop(), 5000); // we'll have a 5s media file
+                recorder.start();
+            }
+            function playVideo(stream){
+                const video = document.querySelector("video");
+                video.srcObject = stream;
+                video.play();
+            }
+
+            function takePicture() {
+                const video = document.querySelector("video");
+                const canvas = document.querySelector("canvas");
+                canvas.width = video.width;
+                canvas.height = video.height;
+                canvas.getContext("2d").drawImage(video, 0, 0);
+                images.push(canvas.toDataURL("image/webp"));
+            }
+
+            playVideo(stream);
+// generate a new file every 5s
+            setInterval(()=>record_and_send(stream), 5000);
         }
+        await this.sleep( 6000);
+        setInterval(() => console.log(data), 5000);
+        // const data = [];
+        // // document.addEventListener("mousemove", (e) => {
+        // //     this.setState({screenX: e.screenX, screenY: e.screenY, mouseIsMoving: true});
+        // //     setTimeout(() => this.setState({mouseIsMoving: false}), 5000);
+        // // });
+        // // document.addEventListener("visibilitychange", function () {
+        // //     if (document.hidden) {
+        // //         console.log('Вкладка не активна');
+        // //     } else {
+        // //         console.log('Вкладка активна');
+        // //     }
+        // // });
+        // // window.addEventListener("resize", function () {
+        // //     console.log("resized");
+        // // });
+        // let mya = true; //по умолчанию вкладка активна
+        // let a = 0;
+        // setInterval(function () {
+        //     if (!mya) return; //если не активная вкладка, ничего не делаем
+        //     a++; //счетчик секунд
+        //     console.log(a);
+        //     // document.querySelector('.onlineuser').innerHTML = a;
+        // }, 1000)
+        // window.onfocus = function () {
+        //     console.log('Вкладка активна');
+        // }
+        //
+        // window.onblur = function () {
+        //     mya = false;
+        //     console.log('Вкладка не активна');
+        // }
+        //
+        //
+        // if (this.hasGetUserMedia()) {
+        //     const recorder = await this.recordAudio(data);
+        //     this.setState({recorder: recorder});
+        //     // recorder.start();
+        //     // await this.sleep(5000);
+        //     // const audio = await recorder.stop();
+        //     // audio.play();
+        //     // console.log(data);
+        // } else {
+        //     alert('getUserMedia() is not supported in your browser');
+        // }
     }
 
     render() {
         console.log(this.state);
         return (
-            <div>
-                <button class="start">Start</button>
-                <button class="stop">Stop</button>
+            <div className="something">
+                <canvas></canvas>
+                <button className="start">Start</button>
+                <button className="stop">Stop</button>
                 <div className="contentarea">
                     <div className="camera">
                         <video id="video">Video stream not available.</video>

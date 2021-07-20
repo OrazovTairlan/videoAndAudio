@@ -1,12 +1,14 @@
 import React, {Component} from 'react';
 import "./App.css";
+import Header from "./components/layouts/Header";
+import ButtonBack from "./components/layouts/ButtonBack";
 
 
 class App extends Component {
     state = {
-        screenX: "",
-        screenY: "",
-        mouseIsMoving: null
+        // screenX: "",
+        // screenY: "",
+        // mouseIsMoving: null
     }
 
     // (function() {
@@ -189,40 +191,40 @@ class App extends Component {
     }
 
     async componentDidMount() {
-        const images = [];
-        const data = [];
-        console.log(document.querySelector(".something"));
-        if (this.hasGetUserMedia()) {
-            const stream = await navigator.mediaDevices.getUserMedia({audio: true, video:true});
-            function record_and_send(stream) {
-                const recorder = new MediaRecorder(stream);
-                const chunks = [];
-                recorder.ondataavailable = e => chunks.push(e.data);
-                recorder.onstop = e => data.push(new Blob(chunks));
-                setTimeout(()=> recorder.stop(), 5000); // we'll have a 5s media file
-                recorder.start();
-            }
-            function playVideo(stream){
-                const video = document.querySelector("video");
-                video.srcObject = stream;
-                video.play();
-            }
-
-            function takePicture() {
-                const video = document.querySelector("video");
-                const canvas = document.querySelector("canvas");
-                canvas.width = video.width;
-                canvas.height = video.height;
-                canvas.getContext("2d").drawImage(video, 0, 0);
-                images.push(canvas.toDataURL("image/webp"));
-            }
-
-            playVideo(stream);
-// generate a new file every 5s
-            setInterval(()=>record_and_send(stream), 5000);
-        }
-        await this.sleep( 6000);
-        setInterval(() => console.log(data), 5000);
+//         const images = [];
+//         const data = [];
+//         console.log(document.querySelector(".something"));
+//         if (this.hasGetUserMedia()) {
+//             const stream = await navigator.mediaDevices.getUserMedia({audio: true, video:true});
+//             function record_and_send(stream) {
+//                 const recorder = new MediaRecorder(stream);
+//                 const chunks = [];
+//                 recorder.ondataavailable = e => chunks.push(e.data);
+//                 recorder.onstop = e => data.push(new Blob(chunks));
+//                 setTimeout(()=> recorder.stop(), 5000); // we'll have a 5s media file
+//                 recorder.start();
+//             }
+//             function playVideo(stream){
+//                 const video = document.querySelector("video");
+//                 video.srcObject = stream;
+//                 video.play();
+//             }
+//
+//             function takePicture() {
+//                 const video = document.querySelector("video");
+//                 const canvas = document.querySelector("canvas");
+//                 canvas.width = video.width;
+//                 canvas.height = video.height;
+//                 canvas.getContext("2d").drawImage(video, 0, 0);
+//                 images.push(canvas.toDataURL("image/webp"));
+//             }
+//
+//             playVideo(stream);
+// // generate a new file every 5s
+//             setInterval(()=>record_and_send(stream), 5000);
+//         }
+//         await this.sleep( 6000);
+//         setInterval(() => console.log(data), 5000);
         // const data = [];
         // // document.addEventListener("mousemove", (e) => {
         // //     this.setState({screenX: e.screenX, screenY: e.screenY, mouseIsMoving: true});
@@ -270,23 +272,10 @@ class App extends Component {
     }
 
     render() {
-        console.log(this.state);
         return (
-            <div className="something">
-                <canvas></canvas>
-                <button className="start">Start</button>
-                <button className="stop">Stop</button>
-                <div className="contentarea">
-                    <div className="camera">
-                        <video id="video">Video stream not available.</video>
-                        <button id="startbutton">Take photo</button>
-                    </div>
-                    <canvas id="canvas">
-                    </canvas>
-                    <div className="output">
-                        <img id="photo" alt="The screen capture will appear in this box."/>
-                    </div>
-                </div>
+            <div>
+                <Header/>
+                <ButtonBack name = "Назад"/>
             </div>
         );
     }

@@ -684,11 +684,164 @@ a {
     color: #37B688;
     margin-bottom: 16px;
 }
+
 .devices {
     padding: 0px 344px 0 363px;
 }
+
 .devices-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 78px;
+}
+
+.devices-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    color: #3D3D3D;
+    text-align: center;
+    margin-bottom: 73px;
+}
+
+.devices-button {
+    padding: 14px 139px;
+    border-radius: 5px;
+    border: none;
+}
+
+.devices-button-next {
+    text-align: center;
+}
+
+/*Common*/
+/*Button*/
+.btn-disabled {
+    background: #D7D7D7;
+}
+
+.btn-allowed {
+    background: #37B688;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+/*Description Component*/
+/*Description*/
+.left-content-teacher {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #636F81;
+}
+
+.left-content-teacher-name {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #3D3D3D;
+}
+
+.right-content-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 130%;
+    /* or 32px */
+    color: #1B315C;
+    margin-bottom: 14px;
+}
+
+.right-content-button-timer {
+    padding: 12px 30px;
+    background: #1B315C;
+    border-radius: 14px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 130%;
+    border: none;
+    /* or 36px */
+
+
+    color: #FFFFFF;
+    margin-bottom: 45px;
+}
+
+.right-content-button {
+    padding: 14px 78px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+    /* White */
+
+    color: #FFFFFF;
+}
+
+.description-content {
     display: flex;
     justify-content: space-between;
 }
 
+.right-content {
+    text-align: center;
+}
+
+.description {
+    padding: 22px 160px 56px 99px;
+    background: #EDEDEE;
+    /* Строк */
+
+    border: 1px solid #CACACA;
+}
+
+.description-suptitle {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    text-align: center;
+
+    color: #3D3D3D;
+    margin-bottom: 38px;
+}
+
+.description-subtitle {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    text-align: center;
+
+    color: #3D3D3D;
+    margin-bottom: 42px;
+}

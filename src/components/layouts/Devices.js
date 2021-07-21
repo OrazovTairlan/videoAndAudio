@@ -17,7 +17,7 @@ class Devices extends Component {
                         <p class="devices-item__status">
                             Успешно
                         </p>
-                        <button class="devices-repeat">
+                        <button class="devices-repeat btn">
                             <img src="../../images/button-again.svg" alt="" class="devices-repeat-img"/> <span class="devices-repeat-text">Начать заново</span>
                         </button>
                     </div>
@@ -30,7 +30,7 @@ class Devices extends Component {
                         <p className="devices-item__status">
                             Успешно
                         </p>
-                        <button className="devices-repeat">
+                        <button className="devices-repeat btn">
                             <img src="../../images/button-again.svg" alt="" className="devices-repeat-img"/> <span
                             className="devices-repeat-text">Начать заново</span>
                         </button>
@@ -44,7 +44,7 @@ class Devices extends Component {
                         <p className="devices-item__status">
                             Успешно
                         </p>
-                        <button className="devices-repeat">
+                        <button className="devices-repeat btn">
                             <img src="../../images/button-again.svg" alt="" className="devices-repeat-img"/> <span
                             className="devices-repeat-text">Начать заново</span>
                         </button>
@@ -58,11 +58,16 @@ class Devices extends Component {
                         <p className="devices-item__status">
                             Успешно
                         </p>
-                        <button className="devices-repeat">
+                        <button className="devices-repeat btn">
                             <img src="../../images/button-again.svg" alt="" className="devices-repeat-img"/> <span
                             className="devices-repeat-text">Начать заново</span>
                         </button>
                     </div>
+                </div>
+                <div class="devices-button-next">
+                    <button class="devices-button btn-disabled btn">
+                        Далее
+                    </button>
                 </div>
             </div>
         );

@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Timer from "./Timer";
 
-class Questions extends Component {
+class Question extends Component {
     data = [
         {
             questionText: "Вопрос 1",
@@ -15,7 +14,7 @@ class Questions extends Component {
         {
             questionText: "Вопрос 2",
             answerOptions: [
-                {answerText: 'Washington', isCorrect: false},
+                {answerText: 'New York', isCorrect: false},
                 {answerText: 'London', isCorrect: false},
                 {answerText: 'Paris', isCorrect: true},
                 {answerText: 'Dublin', isCorrect: false},
@@ -49,7 +48,7 @@ class Questions extends Component {
             ],
         },
         {
-            questionText: "Вопрос 6",
+            questionText: "Вопрос 5",
             answerOptions: [
                 {answerText: 'New York', isCorrect: false},
                 {answerText: 'London', isCorrect: false},
@@ -58,7 +57,7 @@ class Questions extends Component {
             ],
         },
         {
-            questionText: "Вопрос 7",
+            questionText: "Вопрос 5",
             answerOptions: [
                 {answerText: 'New York', isCorrect: false},
                 {answerText: 'London', isCorrect: false},
@@ -69,18 +68,13 @@ class Questions extends Component {
     ]
     state = {
         currentQuestion: 0,
-        finishQuestion: false,
-        answerCount: "0 %",
-        seconds: 5,
-        minutes: 1
+        finishQuestion: false
     }
     handleAnswer = () => {
         const length = this.data.length - 1;
         let {currentQuestion} = this.state;
         const nextQuestion = currentQuestion + 1;
         if (nextQuestion < this.data.length) {
-            const value = Math.round((100 / this.data.length) + Number(this.state.answerCount.split(" %")[0])) + " %";
-            console.log(value, "value");
             console.log(nextQuestion, this.data.length);
             // this.setState(prevState => {
             //     return {
@@ -90,12 +84,9 @@ class Questions extends Component {
             // });
             this.handleProgressBar();
             this.setState({
-                currentQuestion: nextQuestion,
-                answerCount: value
+                currentQuestion: nextQuestion
             });
-        } else if (currentQuestion == this.data.length - 1 && this.state.answerCount != "100 %") {
-            const value = Math.round((100 / this.data.length) + Number(this.state.answerCount.split(" %")[0])) + " %";
-            this.setState({answerCount: "100 %"});
+        } else if (currentQuestion == this.data.length - 1) {
             this.handleProgressBar();
         } else {
             this.setState({finishQuestion: true});
@@ -104,16 +95,14 @@ class Questions extends Component {
     }
     handleProgressBar = (go = true) => {
         const progressBarActive = document.querySelector(".question-progress-bar-active");
-        if (progressBarActive.style.width != "100%" || Number(progressBarActive.style.width.split("%")[0]) > 100) {
-            const value = Math.round(100 / this.data.length);
+        if (progressBarActive.style.width != "100%") {
+            const value = 100 / this.data.length;
             // progressBar.style.width = progressBar.style.width + String(value) + "px";
             // progressBarAfter.getPropertyValue("width")
             console.log(progressBarActive.clientWidth);
             if (go) {
                 if (progressBarActive.style.width < 1) {
                     progressBarActive.style.width += value + "%";
-                } else if (this.state.currentQuestion == this.data.length - 1) {
-                    progressBarActive.style.width = "100%";
                 } else {
                     progressBarActive.style.width = Number(progressBarActive.style.width.split("%")[0]) + value + "%";
                 }
@@ -142,14 +131,14 @@ class Questions extends Component {
                     <div class="question-statistics">
                         <div class="question-statistics-answer">
                             <span class="question-statistics-answer-suptext">Есть ответы:</span>
-                            <span class="question-statistics-answer-subtext">{this.state.answerCount}</span>
+                            <span class="question-statistics-answer-subtext">20 %</span>
                         </div>
                         <div class="question-statistics-answer-line">
 
                         </div>
                         <div className="question-statistics-count">
                             <span className="question-statistics-count-suptext">Есть ответы:</span>
-                            <span className="question-statistics-count-subtext"><Timer minutes = "0" seconds = "5"/></span>
+                            <span className="question-statistics-count-subtext">20 %</span>
                         </div>
                     </div>
                 </header>
@@ -162,7 +151,7 @@ class Questions extends Component {
                 <hr className="question-progress-bar-bottom-hr"/>
                 <div class="question-main">
                     <div class="question-count">
-                        Вопрос {currentQuestion} из {this.data.length - 1}
+                        Вопрос 8 из 30
                     </div>
                     <div class="question-main-content">
                         <div class="question-left-content">
@@ -197,7 +186,7 @@ class Questions extends Component {
                                             </button>
                                         </div>
                                         <div className="question-next">
-                                            <button className="question-next-button btn" onClick={this.handleAnswer}>
+                                            <button className="question-next-button btn">
                                                 Завершить
                                             </button>
                                         </div>
@@ -214,7 +203,10 @@ class Questions extends Component {
                                             </button>
                                         </div>
                                         <div className="question-next">
-                                            <button className="question-next-button btn" onClick={this.handleAnswer}>
+                                            <button className="question-next-button btn" onClick={() => {
+                                                this.handleProgressBar();
+                                                this.setState((state) => ({currentQuestion: state.currentQuestion + 1}))
+                                            }}>
                                                 Следующий
                                             </button>
                                         </div>
@@ -386,4 +378,4 @@ class Questions extends Component {
     }
 }
 
-export default Questions;
+export default Question;

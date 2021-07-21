@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
 import Introduction from "./Introduction";
 import Devices from "./Devices";
+import Description from "./Description";
 import Questions from "./Questions";
-import Testing from "./Testing";
+import Device from "./Device";
 
 class Main extends Component {
     render() {
@@ -11,7 +12,7 @@ class Main extends Component {
             <div className="main">
                 <div className="container">
                     {children}
-                    <Questions/>
+                    <Description/>
                 </div>
             </div>
         );

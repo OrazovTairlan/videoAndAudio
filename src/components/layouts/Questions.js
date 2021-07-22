@@ -74,12 +74,16 @@ class Questions extends Component {
         answerCount: "0 %",
         seconds: 5,
         minutes: 1,
-        0: {}
+        completedQuestion: []
     }
     handleAnswer = () => {
         const length = this.data.length - 1;
         let {currentQuestion} = this.state;
         const nextQuestion = currentQuestion + 1;
+        if (this.state[this.state.currentQuestion] != undefined) {
+            const {completedQuestion} = this.state;
+            this.setState({completedQuestion: [...completedQuestion, this.state.currentQuestion]});
+        }
         if (nextQuestion < this.data.length) {
             const value = Math.round((100 / this.data.length) + Number(this.state.answerCount.split(" %")[0])) + " %";
             console.log(value, "value");
@@ -98,7 +102,9 @@ class Questions extends Component {
             });
         } else if (currentQuestion == this.data.length - 1 && this.state.answerCount != "100 %") {
             const value = Math.round((100 / this.data.length) + Number(this.state.answerCount.split(" %")[0])) + " %";
-            this.setState({answerCount: "100 %"});
+            if (this.data.length == this.state.completedQuestion.length) {
+                this.setState({answerCount: "100 %"});
+            }
             this.handleProgressBar();
         } else {
             this.setState({finishQuestion: true});
@@ -107,18 +113,20 @@ class Questions extends Component {
     }
     handleProgressBar = (go = true) => {
         const progressBarActive = document.querySelector(".question-progress-bar-active");
-        if (progressBarActive.style.width != "100%" || Number(progressBarActive.style.width.split("%")[0]) > 100) {
-            const value = Math.round(100 / this.data.length);
-            // progressBar.style.width = progressBar.style.width + String(value) + "px";
-            // progressBarAfter.getPropertyValue("width")
-            console.log(progressBarActive.clientWidth);
-            if (go) {
-                if (progressBarActive.style.width < 1) {
-                    progressBarActive.style.width += value + "%";
-                } else if (this.state.currentQuestion == this.data.length - 1) {
-                    progressBarActive.style.width = "100%";
-                } else {
-                    progressBarActive.style.width = Number(progressBarActive.style.width.split("%")[0]) + value + "%";
+        if (this.state[this.state.currentQuestion] != undefined) {
+            if (progressBarActive.style.width != "100%" || Number(progressBarActive.style.width.split("%")[0]) > 100) {
+                const value = Math.round(100 / this.data.length);
+                // progressBar.style.width = progressBar.style.width + String(value) + "px";
+                // progressBarAfter.getPropertyValue("width")
+                console.log(progressBarActive.clientWidth);
+                if (go) {
+                    if (progressBarActive.style.width < 1) {
+                        progressBarActive.style.width += value + "%";
+                    } else if (this.data.length == this.state.completedQuestion.length) {
+                        progressBarActive.style.width = "100%";
+                    } else {
+                        progressBarActive.style.width = Number(progressBarActive.style.width.split("%")[0]) + value + "%";
+                    }
                 }
             }
         }
@@ -134,22 +142,22 @@ class Questions extends Component {
         e.target.dataset.checked = "checked";
         this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
     }
-
     handleActiveButtonQuestions = () => {
-        if (Object.keys(this.state[this.state.currentQuestion]).length > 0) {
-            console.log(Object.keys(this.state[this.state.currentQuestion]).length);
-            const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);
-            console.log(navButtonQuestions);
-            navButtonQuestions.classList.remove("not-completed-question-navigation");
-            navButtonQuestions.classList.add("completed-question-navigation");
-        } else {
-            const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);
-            console.log(navButtonQuestions);
-            navButtonQuestions.classList.remove("completed-question-navigation");
-            navButtonQuestions.classList.add("not-completed-question-navigation");
+        if (this.state[this.state.currentQuestion] != undefined) {
+            if (Object.keys(this.state[this.state.currentQuestion]).length > 0) {
+                console.log(Object.keys(this.state[this.state.currentQuestion]).length);
+                const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);
+                console.log(navButtonQuestions);
+                navButtonQuestions.classList.remove("not-completed-question-navigation");
+                navButtonQuestions.classList.add("completed-question-navigation");
+            } else {
+                const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);
+                console.log(navButtonQuestions);
+                navButtonQuestions.classList.remove("completed-question-navigation");
+                navButtonQuestions.classList.add("not-completed-question-navigation");
+            }
         }
     };
-
     // componentDidUpdate(prevProps, prevState, snapshot) {
     //     if (prevState[this.state.currentQuestion]) {
     //         const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);

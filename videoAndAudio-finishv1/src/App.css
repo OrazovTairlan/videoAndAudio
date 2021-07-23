@@ -1,0 +1,1239 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
+/* Document
+   ========================================================================== */
+
+/**
+ * 1. Correct the line height in all browsers.
+ * 2. Prevent adjustments of font size after orientation changes in iOS.
+ */
+
+html {
+    line-height: 1.15; /* 1 */
+    -webkit-text-size-adjust: 100%; /* 2 */
+}
+
+/* Sections
+   ========================================================================== */
+
+/**
+ * Remove the margin in all browsers.
+ */
+
+body {
+    margin: 0;
+}
+
+/**
+ * Render the `main` element consistently in IE.
+ */
+
+main {
+    display: block;
+}
+
+/**
+ * Correct the font size and margin on `h1` elements within `section` and
+ * `article` contexts in Chrome, Firefox, and Safari.
+ */
+
+h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+}
+
+/* Grouping content
+   ========================================================================== */
+
+/**
+ * 1. Add the correct box sizing in Firefox.
+ * 2. Show the overflow in Edge and IE.
+ */
+
+hr {
+    box-sizing: content-box; /* 1 */
+    height: 0; /* 1 */
+    overflow: visible; /* 2 */
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+pre {
+    font-family: monospace, monospace; /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/* Text-level semantics
+   ========================================================================== */
+
+/**
+ * Remove the gray background on active links in IE 10.
+ */
+
+a {
+    background-color: transparent;
+}
+
+/**
+ * 1. Remove the bottom border in Chrome 57-
+ * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.
+ */
+
+abbr[title] {
+    border-bottom: none; /* 1 */
+    text-decoration: underline; /* 2 */
+    text-decoration: underline dotted; /* 2 */
+}
+
+/**
+ * Add the correct font weight in Chrome, Edge, and Safari.
+ */
+
+b,
+strong {
+    font-weight: bolder;
+}
+
+/**
+ * 1. Correct the inheritance and scaling of font size in all browsers.
+ * 2. Correct the odd `em` font sizing in all browsers.
+ */
+
+code,
+kbd,
+samp {
+    font-family: monospace, monospace; /* 1 */
+    font-size: 1em; /* 2 */
+}
+
+/**
+ * Add the correct font size in all browsers.
+ */
+
+small {
+    font-size: 80%;
+}
+
+/**
+ * Prevent `sub` and `sup` elements from affecting the line height in
+ * all browsers.
+ */
+
+sub,
+sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+}
+
+sub {
+    bottom: -0.25em;
+}
+
+sup {
+    top: -0.5em;
+}
+
+/* Embedded content
+   ========================================================================== */
+
+/**
+ * Remove the border on images inside links in IE 10.
+ */
+
+img {
+    border-style: none;
+}
+
+/* Forms
+   ========================================================================== */
+
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+button,
+input,
+optgroup,
+select,
+textarea {
+    font-family: inherit; /* 1 */
+    font-size: 100%; /* 1 */
+    line-height: 1.15; /* 1 */
+    margin: 0; /* 2 */
+}
+
+/**
+ * Show the overflow in IE.
+ * 1. Show the overflow in Edge.
+ */
+
+button,
+input { /* 1 */
+    overflow: visible;
+}
+
+/**
+ * Remove the inheritance of text transform in Edge, Firefox, and IE.
+ * 1. Remove the inheritance of text transform in Firefox.
+ */
+
+button,
+select { /* 1 */
+    text-transform: none;
+}
+
+/**
+ * Correct the inability to style clickable types in iOS and Safari.
+ */
+
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+    -webkit-appearance: button;
+}
+
+/**
+ * Remove the inner border and padding in Firefox.
+ */
+
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+    border-style: none;
+    padding: 0;
+}
+
+/**
+ * Restore the focus styles unset by the previous rule.
+ */
+
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+    outline: 1px dotted ButtonText;
+}
+
+/**
+ * Correct the padding in Firefox.
+ */
+
+fieldset {
+    padding: 0.35em 0.75em 0.625em;
+}
+
+/**
+ * 1. Correct the text wrapping in Edge and IE.
+ * 2. Correct the color inheritance from `fieldset` elements in IE.
+ * 3. Remove the padding so developers are not caught out when they zero out
+ *    `fieldset` elements in all browsers.
+ */
+
+legend {
+    box-sizing: border-box; /* 1 */
+    color: inherit; /* 2 */
+    display: table; /* 1 */
+    max-width: 100%; /* 1 */
+    padding: 0; /* 3 */
+    white-space: normal; /* 1 */
+}
+
+/**
+ * Add the correct vertical alignment in Chrome, Firefox, and Opera.
+ */
+
+progress {
+    vertical-align: baseline;
+}
+
+/**
+ * Remove the default vertical scrollbar in IE 10+.
+ */
+
+textarea {
+    overflow: auto;
+}
+
+/**
+ * 1. Add the correct box sizing in IE 10.
+ * 2. Remove the padding in IE 10.
+ */
+
+[type="checkbox"],
+[type="radio"] {
+    box-sizing: border-box; /* 1 */
+    padding: 0; /* 2 */
+}
+
+/**
+ * Correct the cursor style of increment and decrement buttons in Chrome.
+ */
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+    height: auto;
+}
+
+/**
+ * 1. Correct the odd appearance in Chrome and Safari.
+ * 2. Correct the outline style in Safari.
+ */
+
+[type="search"] {
+    -webkit-appearance: textfield; /* 1 */
+    outline-offset: -2px; /* 2 */
+}
+
+/**
+ * Remove the inner padding in Chrome and Safari on macOS.
+ */
+
+[type="search"]::-webkit-search-decoration {
+    -webkit-appearance: none;
+}
+
+/**
+ * 1. Correct the inability to style clickable types in iOS and Safari.
+ * 2. Change font properties to `inherit` in Safari.
+ */
+
+::-webkit-file-upload-button {
+    -webkit-appearance: button; /* 1 */
+    font: inherit; /* 2 */
+}
+
+/* Interactive
+   ========================================================================== */
+
+/*
+ * Add the correct display in Edge, IE 10+, and Firefox.
+ */
+
+details {
+    display: block;
+}
+
+/*
+ * Add the correct display in all browsers.
+ */
+
+summary {
+    display: list-item;
+}
+
+/* Misc
+   ========================================================================== */
+
+/**
+ * Add the correct display in IE 10+.
+ */
+
+template {
+    display: none;
+}
+
+/**
+ * Add the correct display in IE 10.
+ */
+
+[hidden] {
+    display: none;
+}
+
+/*normalize*/
+
+*,
+*:after,
+*:before {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+/*Header Component*/
+/*Header*/
+.header-wrapper {
+    background: #F4F4F4;
+    box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
+}
+
+.header-inner {
+    padding: 20px 39px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 1152px;
+    justify-content: space-between;
+}
+
+.header-logo__image {
+    margin-right: 12px;
+}
+
+.header-main-suptext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 26px;
+    color: #3D3D3D;
+    line-height: 130%;
+}
+
+.header-main-suptitle {
+    margin-bottom: 17px;
+}
+
+.header-main-subtitle-list {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 130%;
+    color: #3D3D3D;
+}
+
+.header-main {
+    display: flex;
+    text-align: center;
+    flex-direction: column;
+}
+
+.header-main-subtitle__stages {
+    display: flex;
+}
+
+.header-logo {
+    display: flex;
+    align-items: center;
+}
+
+.list-arrow {
+    padding: 0 17px;
+}
+
+.active-list {
+    color: #37B688;
+    font-weight: bold;
+}
+
+/*ButtonBack Component*/
+.button-back {
+    position: relative;
+    border: none;
+    padding: 12px;
+    border: 2px solid #636F81;
+    border-radius: 50%;
+    margin-right: 10px;
+    background: none;
+    cursor: pointer;
+}
+
+.back {
+    display: flex;
+    align-items: center;
+}
+
+.button-back-name {
+    color: #000000;
+    font-family: Open Sans;
+    font-size: 18px;
+    line-height: 130%;
+}
+
+/*Main Component*/
+/*Main*/
+.main {
+    padding: 20px 0;
+    background: #E5E5E5;
+    height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+}
+
+/*Introduction Component*/
+/*Introduction*/
+.introduction {
+    background: #EDEDEE;
+    margin-top: 20px;
+    border: 1px solid #CACACA;
+    padding: 22px 44px 43px;
+}
+
+.introduction-confirm label {
+    display: flex;
+    align-items: center;
+}
+
+.introduction-conditions__item {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 145%;
+    /* or 19px */
+
+
+    color: #3D3D3D;
+}
+
+.introduction-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 130%;
+    color: #3D3D3D;
+    margin-bottom: 22px;
+    text-align: center;
+}
+
+.hidden-input {
+    width: 0px;
+    height: 0px;
+    opacity: 0;
+    position: absolute;
+}
+
+.input-custom-container {
+    display: block;
+    position: relative;
+    padding-left: 36px;
+    cursor: pointer;
+}
+
+.confirm-input-custom {
+    position: absolute;
+    left: 0;
+    width: 24px;
+    height: 24px;
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+    border-radius: 6px;
+    background: #FFFFFF;
+    /* Colors/Neutral/Gray 4 */
+
+    border: 1px solid #E4E4E4;
+}
+
+.hidden-input:checked .confirm-input-custom:after {
+    display: block;
+}
+
+.confirm-input-custom:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(
+            45deg
+    );
+    color: blue;
+    -ms-transform: rotate(45deg);
+    transform: rotate(
+            45deg
+    );
+    content: "";
+    position: absolute;
+    display: block;
+}
+
+.introduction-confirm-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #3D3D3D;
+}
+
+.introduction-input-confirm-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #3D3D3D;
+}
+
+.introduction-confirm {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.input-introduction-confirm {
+    margin-right: 12px;
+}
+
+.introduction-next-button {
+    padding: 14px 139px;
+    background: #37B688;
+    border-radius: 5px;
+    border: none;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+
+    /* White */
+
+    color: #FFFFFF;
+}
+
+.introduction-next {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/*Devices Component*/
+
+/*Devices*/
+
+.devices-repeat {
+    padding: 6px 10px;
+    background: none;
+    border: none;
+    border: 1px solid #636F81;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+}
+.devices-check {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    padding: 5px;
+    background: #37B688;
+    border-radius: 50%;
+}
+
+.devices-repeat-img {
+    margin-right: 10px;
+}
+
+.devices-repeat-text {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    /* identical to box height */
+    color: #636F81;
+    flex: none;
+}
+
+.devices-item__title {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    color: #3D3D3D;
+    margin-bottom: 20px;
+}
+
+.devices-item__image {
+    margin-bottom: 20px;
+    border: 3px solid #37B688;
+    border-radius: 50%;
+}
+
+.devices-item {
+    width: 100%;
+    max-width: 116px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.devices-relative {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.devices-item__status {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+
+    /* Семинар */
+
+    color: #37B688;
+    margin-bottom: 16px;
+}
+
+.devices {
+    padding: 0px 344px 0 363px;
+}
+
+.devices-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 78px;
+}
+
+.devices-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    color: #3D3D3D;
+    text-align: center;
+    margin-bottom: 73px;
+}
+
+.devices-button {
+    padding: 14px 139px;
+    border-radius: 5px;
+    border: none;
+}
+
+.devices-button-next {
+    text-align: center;
+}
+
+/*Common*/
+/*Button*/
+.btn-disabled {
+    background: #D7D7D7;
+}
+
+.btn-allowed {
+    background: #37B688;
+}
+
+.btn {
+    cursor: pointer;
+}
+
+/*Description Component*/
+/*Description*/
+.left-content-teacher {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #636F81;
+}
+
+.left-content-teacher-name {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 130%;
+    /* or 18px */
+
+
+    color: #3D3D3D;
+}
+
+.right-content-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 130%;
+    /* or 32px */
+    color: #1B315C;
+    margin-bottom: 14px;
+}
+
+.right-content-button-timer {
+    padding: 12px 30px;
+    background: #1B315C;
+    border-radius: 14px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 28px;
+    line-height: 130%;
+    border: none;
+    /* or 36px */
+
+
+    color: #FFFFFF;
+    margin-bottom: 45px;
+}
+
+.right-content-button {
+    padding: 14px 78px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+    /* White */
+
+    color: #FFFFFF;
+}
+
+.description-content {
+    display: flex;
+    justify-content: space-between;
+}
+
+.right-content {
+    text-align: center;
+}
+
+.description {
+    padding: 22px 160px 56px 99px;
+    background: #EDEDEE;
+    /* Строк */
+
+    border: 1px solid #CACACA;
+}
+
+.description-suptitle {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    text-align: center;
+
+    color: #3D3D3D;
+    margin-bottom: 38px;
+}
+
+.description-subtitle {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+    text-align: center;
+
+    color: #3D3D3D;
+    margin-bottom: 42px;
+}
+
+/*Question Component*/
+/*Question*/
+.question {
+    background: #EDEDEE;
+    /* Строк */
+
+    border: 1px solid #CACACA;
+    padding: 12px 20px 54px;
+    margin-top: 20px;
+}
+
+.question-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+
+    color: #3D3D3D;
+}
+
+.question-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.question-statistics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.question-statistics-answer-line {
+    margin: 0 27px;
+    height: 51px;
+    border-left: 1px solid #CACACA;
+}
+
+.question-progress-bar {
+    width: 100%;
+    max-width: 1220px;
+    height: 5px;
+    margin: 14px 0;
+    background: #D9D9D9;
+    border-radius: 12px;
+    transition: all 1s;
+    position: relative;
+}
+
+
+.question-progress-bar-active {
+    border-radius: 12px;
+    width: 0%;
+    transition: all 1s;
+    height: 5px;
+    background: #37B688;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+/*.question-progress-bar:after {*/
+/*    display: block;*/
+/*    border-radius: 12px;*/
+/*    content: "";*/
+/*    width: 5px;*/
+/*    transition: all 1s;*/
+/*    height: 5px;*/
+/*    background: #37B688;*/
+/*}*/
+
+.question-progress-bar-top-hr {
+    border: none;
+    border-top: 1px solid #CACACA;
+    width: 100%;
+    max-width: 1240px;
+    height: 0px;
+}
+
+.question-progress-bar-bottom-hr {
+    border: none;
+    border-top: 1px solid #CACACA;
+    width: 100%;
+    max-width: 1240px;
+    height: 0px;
+    margin-bottom: 24px;
+}
+
+.question-item {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 13px;
+    /* or 93% */
+
+    /* Colors/Neutral/White */
+    display: inline-block;
+    color: #FFFFFF;
+    padding: 3px 7px;
+    border-radius: 50%;
+    border: 3px solid white;
+}
+
+.question-statistics-answer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.question-statistics-answer-suptext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 130%;
+    /* identical to box height, or 16px */
+
+    text-align: center;
+
+    color: #636F81;
+    margin-bottom: 2px;
+}
+
+.question-statistics-answer-subtext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 130%;
+    /* or 31px */
+
+    text-align: center;
+
+    color: #636F81;
+}
+
+.not-completed-question-navigation {
+    background: #D9D9D9;
+}
+
+.completed-question-navigation {
+    background: #37B688;
+}
+
+.question-statistics-count {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.question-statistics-count-suptext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 130%;
+    /* identical to box height, or 16px */
+
+    text-align: center;
+
+    color: #636F81;
+    margin-bottom: 2px;
+}
+
+.question-statistics-count-subtext {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 24px;
+    line-height: 130%;
+    /* or 31px */
+
+    text-align: center;
+
+    color: #636F81;
+}
+
+.question-count {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 130%;
+    /* identical to box height, or 26px */
+
+
+    color: #3D3D3D;
+    margin-bottom: 24px;
+
+}
+
+.question-description-text {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 140%;
+    /* or 17px */
+
+
+    color: #000000;
+    margin-bottom: 45px;
+}
+
+.question-answer-variant {
+    border: 1px solid #CACACA;
+    width: 100%;
+    padding: 13px 0 15px 17px;
+    max-width: 790px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 140%;
+    /* identical to box height, or 17px */
+
+
+    color: #000000;
+}
+
+.question-answer-variant label {
+    display: block;
+    cursor: pointer;
+}
+
+.question-answer-input {
+    margin-right: 20px;
+}
+
+.question-table-nav {
+    width: 100%;
+    max-width: 324px;
+    height: 100%;
+    background: #EDEDEE;
+    /* Строк */
+
+    border: 1px solid #CACACA;
+    padding: 27px;
+}
+
+.question-items {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -21px;
+}
+
+.question-item:nth-child(5n) {
+    margin: 0px 0px 30px 0px;
+}
+
+.question-item {
+    margin: 0 33px 30px 0px;
+}
+
+.question-item-button {
+    border: none;
+    background: none;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 13px;
+    /* or 93% */
+    /* Colors/Neutral/White */
+    color: #FFFFFF;
+    cursor: pointer;
+}
+
+.question-main-content {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+.question-left-content {
+    width: 100%;
+    max-width: 790px;
+}
+
+.question-navigation {
+    display: flex;
+    width: 100%;
+    max-width: 370px;
+    justify-content: space-between;
+    margin-left: auto;
+}
+
+.question-prev-button {
+    padding: 14px 35px;
+    background: #EDEDEE;
+    /* Строк */
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+
+    /* Семинар */
+    color: #37B688;
+    border: none;
+    border: 1px solid #37B688;
+    border-radius: 5px;
+}
+
+.question-next-button {
+    padding: 14px 41px;
+    background: #37B688;
+    border-radius: 5px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+
+    /* White */
+    color: #FFFFFF;
+    border: none;
+}
+
+.question-answer {
+    margin-bottom: 45px;
+}
+
+.radio__real {
+    width: 1px;
+    height: 1px;
+    position: absolute;
+    opacity: 0;
+    appearance: none;
+}
+
+.radio__fake {
+    position: relative;
+    display: inline-block;
+    margin-right: 7px;
+    width: 24px;
+    height: 24px;
+    background: #FFFFFF;
+    /* Colors/Neutral/Gray 4 */
+
+    border: 1px solid #E4E4E4;
+    /* Dropshadow 1 */
+
+    box-shadow: 0px 7px 64px rgba(0, 0, 0, 0.07);
+    border-radius: 6px;
+    vertical-align: bottom;
+}
+
+.radio__real:checked + .radio__fake {
+
+}
+
+.radio__real:checked + .radio__fake::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    content: '';
+    background-image: url("images/check.svg");
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    transform: translate(-50%, -50%);
+}

@@ -197,7 +197,6 @@ class Questions extends Component {
     handlePrevButton = () => {
         if (!this.isFirstQuestion()) {
             this.handlePrevQuestion();
-            this.handlePercentAnswersBack();
         }
     }
     isFirstQuestion = () => {
@@ -265,10 +264,9 @@ class Questions extends Component {
                                 {this.data[currentQuestion].answerOptions.map((item) => {
                                     return (
                                         <div className="question-answer-variant">
-                                            {this.state[currentQuestion] != undefined ? this.state[currentQuestion][item.id] == true ?
+                                            {Store.questions[currentQuestion] != undefined ? Store.questions[currentQuestion][item.id] == true ?
                                                 <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
-                                                           checked
                                                            data-value={`${item.answerText}`}
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>

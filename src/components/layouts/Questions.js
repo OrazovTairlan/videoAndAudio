@@ -86,8 +86,8 @@ class Questions extends Component {
     }
 
     handleNextButton = () => {
-        this.deleteAllDatasetAttribCheckedInput();
         this.handleNextQuestion();
+        this.deleteAllDatasetAttribCheckedInput();
     }
 
     handleAnswer = (e) => {
@@ -183,12 +183,20 @@ class Questions extends Component {
     handlePercentAnswers = () => {
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount + Math.round(Number(100 / this.data.length))) + " %";
+        if (Store.questions.length == this.data.length) {
+            this.setState({answerCount: "100 %"});
+            return;
+        }
         this.setState({answerCount: value});
     }
 
     handlePercentAnswersBack = () => {
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount - Math.round(Number(100 / this.data.length))) + " %";
+        if (Store.questions.length == 0) {
+            this.setState({answerCount: "0 %"});
+            return;
+        }
         this.setState({answerCount: value});
     }
 
@@ -274,6 +282,7 @@ class Questions extends Component {
                                                 <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
                                                            data-value={`${item.answerText}`}
+                                                           data-checked="checked"
                                                            checked
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>

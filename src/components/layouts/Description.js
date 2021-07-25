@@ -13,6 +13,10 @@ class Description extends Component {
         timerBtn.classList.remove("btn-disabled")
         this.setState({disabledButton: false});
     }
+    async componentDidMount() {
+        await Store.auth();
+        await Store.getDescription();
+    }
 
     render() {
         return (

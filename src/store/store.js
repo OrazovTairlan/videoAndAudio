@@ -1,4 +1,4 @@
-import {makeAutoObservable} from "mobx";
+import {makeAutoObservable, toJS} from "mobx";
 import axios from "axios";
 
 class Store {
@@ -8,8 +8,21 @@ class Store {
     Description = "Description";
     currentComponent = "Introduction";
     showButton = true;
+    count = 0;
+    questions = {};
+
     constructor() {
         makeAutoObservable(this);
+    }
+
+    auth = async () => {
+        const data = {
+            Login: "77086930773",
+            RoleId: "5d5b8590cc091303c4acfb10",
+            Password: "12345678"
+        }
+        const result = await axios.post("/api/authentication/Login", data);
+        axios.defaults.headers.common["Authorization"] = result.data.token;
     }
 
     handleSubmitPush = async (data) => {
@@ -71,6 +84,16 @@ class Store {
         this.categories = result.data;
         console.log(this.categories)
     };
+    getDescription = async () => {
+        const result = await axios({
+                method: "get",
+                url: "https://dashboard.curs.kz:8023/api/Tests/Info?id=120521",
+                headers: {'Access-Control-Allow-Origin': "*"},
+                mode: 'cors'
+            })
+        ;
+        console.log(result);
+    }
 }
 
 export default new Store();

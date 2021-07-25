@@ -3,6 +3,9 @@ import Timer from "./Timer";
 import {v4 as uuidv4} from "uuid";
 import _ from "lodash";
 import TimerQuestion from "./TimerQuestion";
+import {observer} from "mobx-react";
+import Store from "../../store/store";
+import {toJS} from "mobx";
 
 class Questions extends Component {
     data = [
@@ -75,160 +78,151 @@ class Questions extends Component {
         finishQuestions: false,
         answerCount: "0 %",
         completedQuestion: [],
-        currentToggle: false,
-        completedQuestionCopy: []
-    }
-    handleAnswer = (e) => {
-        if (!this.state.finishQuestions) {
-            this.handleValueAnswer(e);
-            this.handlePercentAnswers();
-            this.handleCompletedQuestions();
-            this.handleProgressBar();
-            this.handleCopyCompletedQuestions();
-            this.handleActiveButtonQuestions();
-            this.isEqualCompletedQuestionsToQuestion();
-        }
-        if (e.target.dataset.checked == undefined) {
-            this.handleDeleteCompletedQuestions();
-            this.handlePercentAnswerBack();
-        }
+        checked: false,
+        completedQuestionCopy: [],
+        count: 0,
+        progressBarCount: 0
 
     }
+
     handleNextButton = () => {
-        if (!this.isQuestionEnd()) {
-            const checkedElements = document.querySelectorAll("[data-checked = 'checked']");
-            Array.from(checkedElements).forEach((item) => {
-                delete item.dataset.checked
-                item.checked = false;
-            });
-            this.handleNextQuestion();
+        this.handleNextQuestion();
+    }
+
+    handleAnswer = (e) => {
+        this.handleInput(e);
+    }
+
+    handleInput = (e) => {
+        const currentQuestion = this.state.currentQuestion;
+        if (this.isCheckedInput(e)) { // тут удаляем атрибут
+            this.deleteDatasetAttribInput(e);
+            this.handlePercentAnswersBack();
+            this.handleProgressBarBack();
+            // this.setState({[currentQuestion]: {}});
+            Store.questions = {...Store.questions, [currentQuestion]: {}}
+            console.log(toJS(Store.questions));
+            return;
+        }
+        this.deleteAllDatasetAttribCheckedInput(); // здесь добавляем атрибут
+        this.addDatasetAttribInput(e);
+        if (this.isFilledAnswer()) {
+            this.setState(state => ({...state}));
+            return;
+        }
+        this.handleProgressBar();
+        this.handlePercentAnswers();
+        Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
+        // this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
+    }
+
+    handleProgressBar = () => {
+        const progressBarActive = document.querySelector(".question-progress-bar-active");
+        const value = (Number(this.state.progressBarCount) + Math.round(100 / this.data.length));
+        this.setState({progressBarCount: value});
+        progressBarActive.style.width = value + "%";
+    }
+
+    handleProgressBarBack = () => {
+        const progressBarActive = document.querySelector(".question-progress-bar-active");
+        const value = (Number(this.state.progressBarCount) - Math.round(100 / this.data.length));
+        this.setState({progressBarCount: value});
+        progressBarActive.style.width = value + "%";
+    }
+    isFilledAnswer = () => {
+        const {currentQuestion} = this.state;
+        // console.log(this.state);
+        // if (Object.keys(currentQuestion).length > 0) {
+        //     return true;
+        // }
+        // return false;
+        try {
+            if (Object.keys(Store.questions[currentQuestion]).length > 0) {
+                return true;
+            }
+            return false;
+        } catch (e) {
+            return false;
+        }
+    };
+
+    handleValueAnswer = (e) => {
+        const currentQuestion = this.state.currentQuestion;
+        if (e.target.dataset.checked) {
+            this.setState({[currentQuestion]: {}});
+            return;
+        }
+        this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
+    }
+
+    isCheckedInput = (e) => {
+        if (e.target.dataset.checked) {
+            return true;
+        }
+        return false;
+    }
+
+    deleteAllDatasetAttribCheckedInput = () => {
+        const questionInput = document.querySelectorAll(".question-answer input");
+        Array.from(questionInput).forEach((item) => delete item.dataset.checked);
+    }
+
+    addDatasetAttribInput = (e) => {
+        e.target.dataset.checked = "checked";
+    }
+    deleteDatasetAttribInput = (e) => {
+        delete e.target.dataset.checked;
+        e.target.checked = false;
+    }
+
+    handlePercentAnswers = () => {
+        const answerCount = Number(this.state.answerCount.split(" %")[0]);
+        const value = (answerCount + Math.round(Number(100 / this.data.length))) + " %";
+        this.setState({answerCount: value});
+    }
+
+    handlePercentAnswersBack = () => {
+        const answerCount = Number(this.state.answerCount.split(" %")[0]);
+        const value = (answerCount - Math.round(Number(100 / this.data.length))) + " %";
+        this.setState({answerCount: value});
+    }
+
+
+    handleNextQuestion = () => {
+        const {currentQuestion} = this.state;
+        const nextQuestion = currentQuestion + 1;
+        this.setState({currentQuestion: nextQuestion});
+    }
+
+    handlePrevButton = () => {
+        if (!this.isFirstQuestion()) {
+            this.handlePrevQuestion();
+            this.handlePercentAnswersBack();
         }
     }
     isFirstQuestion = () => {
-        if (this.state.currentQuestion == 0) {
+        const {currentQuestion} = this.state;
+        if (currentQuestion == 0) {
             return true;
         }
         return false;
     }
-
-    isEmptyAnswer = () => {
-        if (this.state[this.state.currentQuestion] != undefined && Object.keys(this.state[this.state.currentQuestion]).length == 0) {
+    isEndQuestion = () => {
+        const {currentQuestion} = this.state;
+        const lastQuestion = this.data.length - 1;
+        if (currentQuestion == lastQuestion) {
             return true;
         }
         return false;
     }
-    handleBackQuestion = () => {
-        let {currentQuestion} = this.state;
+    handlePrevQuestion = () => {
+        const {currentQuestion} = this.state;
         const prevQuestion = currentQuestion - 1;
         this.setState({currentQuestion: prevQuestion});
     }
 
-
-    isEqualCompletedQuestionsToQuestion = () => {
-        if (this.state.completedQuestion.length == this.data.length) {
-            this.setState({finishQuestions: true});
-            return;
-        }
-        this.setState({finishQuestions: false});
-    }
-    isFilledAnswer = () => {
-        if (this.state[this.state.currentQuestion] != undefined) {
-            return true;
-        }
-        return false;
-    }
-    handleCopyCompletedQuestions = () => {
-        const {completedQuestionCopy} = this.state;
-        const uniqArray = _.uniq([...completedQuestionCopy, this.state.currentQuestion]);
-        this.setState({completedQuestionCopy: [...uniqArray]});
-    }
-    handlePercentAnswers = () => {
-        if (this.state.completedQuestionCopy.filter((item) => item == this.state.currentQuestion).length == 0) {
-            console.log("checked");
-            // if (this.state.completedQuestion.filter((item) => item == this.state.currentQuestion).length <= 0) {
-            const value = Math.round(100 / this.data.length) + Number(this.state.answerCount.split(" %")[0]) + " %";
-            if (this.state.completedQuestion.length == this.data.length - 1) {
-                this.setState({answerCount: "100 %"});
-                return;
-            }
-            this.setState({answerCount: value});
-        }
-        // }
-    }
-    handlePercentAnswerBack = () => {
-        // if (this.state.completedQuestion.filter((item) => item == this.state.currentQuestion).length == 0) {
-        const value = (Number(this.state.answerCount.split(" %")[0]) - Math.round(100 / this.data.length)) + " %";
-        // if (this.state.completedQuestion.length == this.data.length) {
-        //     console.log("end answer count");
-        //     this.setState({answerCount: "0 %"});
-        //     return;
-        // }
-        this.setState({answerCount: value});
-        // }
-    }
-    isQuestionEnd = () => {
-        let {currentQuestion} = this.state;
-        if (currentQuestion + 1 == this.data.length) {
-            return true;
-        }
-        console.log(currentQuestion + 1);
-        return false;
-    }
-    handleCompletedQuestions = () => {
-        const {completedQuestion} = this.state;
-        const uniqArray = _.uniq([...completedQuestion, this.state.currentQuestion]);
-        this.setState({completedQuestion: [...uniqArray]});
-    }
-
-    handleNextQuestion = () => {
-        let {currentQuestion} = this.state;
-        const nextQuestion = currentQuestion + 1;
-        this.setState({currentQuestion: nextQuestion});
-    }
-    handleDeleteCompletedQuestions = () => {
-        const {completedQuestion} = this.state;
-        const uniqArray = _.uniq([...completedQuestion]);
-        const filteredArray = uniqArray.filter((item) => item != this.state.currentQuestion);
-        this.setState({completedQuestion: [...filteredArray]});
-    }
-    handleProgressBar = () => {
-        if (this.state.completedQuestion.filter((item) => item == this.state.currentQuestion).length == 0) {
-            const progressBarActive = document.querySelector(".question-progress-bar-active");
-            const value = (Number(progressBarActive.style.width.split("%")[0]) + (Math.round(100 / this.data.length))) + "%";
-            if (this.state.completedQuestion.length == this.data.length - 1) {
-                console.log("something");
-                progressBarActive.style.width = "100%";
-            }
-            if (progressBarActive.style.width != "100%") {
-                progressBarActive.style.width = value;
-            }
-        }
-    };
-    handleValueAnswer = (e) => {
-        const currentQuestion = this.state.currentQuestion;
-        if (e.target.dataset.checked) {
-            e.target.checked = false;
-            delete e.target.dataset.checked;
-            this.setState({[currentQuestion]: {}});
-            return;
-        }
-        e.target.dataset.checked = "checked";
-        this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
-    }
-    handleActiveButtonQuestions = () => {
-        const navButtonQuestions = document.querySelector(`li[data-id="${this.state.currentQuestion + 1}"]`);
-        console.log(this.state.completedQuestion);
-        if (this.state.completedQuestion.filter((item) => item == this.state.currentQuestion).length > 0) {
-            console.log("off");
-            navButtonQuestions.classList.remove("completed-question-navigation");
-        } else {
-            console.log("on");
-            navButtonQuestions.classList.add("completed-question-navigation");
-        }
-    };
-
     render() {
-        const {currentQuestion, finishQuestion} = this.state;
+        const {currentQuestion} = this.state;
         return (
             <div className="question">
                 <header class="question-header">
@@ -273,7 +267,7 @@ class Questions extends Component {
                                         <div className="question-answer-variant">
                                             {this.state[currentQuestion] != undefined ? this.state[currentQuestion][item.id] == true ?
                                                 <>
-                                                    <input type="checkbox" data-id={`${item.id}`} name="answer"
+                                                    <input type="radio" data-id={`${item.id}`} name="answer"
                                                            checked
                                                            data-value={`${item.answerText}`}
                                                            onClick={this.handleAnswer}
@@ -282,7 +276,7 @@ class Questions extends Component {
                                                           data-id={`${item.id}`}>{item.answerText}</span>
                                                 </> :
                                                 <>
-                                                    <input type="checkbox" data-id={`${item.id}`} name="answer"
+                                                    <input type="radio" data-id={`${item.id}`} name="answer"
                                                            data-value={`${item.answerText}`}
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
@@ -290,7 +284,7 @@ class Questions extends Component {
                                                           data-id={`${item.id}`}>{item.answerText}</span>
                                                 </>
                                                 : <>
-                                                    <input type="checkbox" data-id={`${item.id}`} name="answer"
+                                                    <input type="radio" data-id={`${item.id}`} name="answer"
                                                            data-value={`${item.answerText}`}
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
@@ -306,8 +300,8 @@ class Questions extends Component {
                                 {currentQuestion >= this.data.length - 1 || this.state.completedQuestion.length == this.data.length ? (
                                     <>
                                         <div className="question-prev">
-                                            <button
-                                                className="question-prev-button btn">
+                                            <button onClick={this.handlePrevButton}
+                                                    className="question-prev-button btn">
                                                 Предыдущий
                                             </button>
                                         </div>
@@ -321,6 +315,7 @@ class Questions extends Component {
                                     <>
                                         <div className="question-prev">
                                             <button
+                                                onClick={this.handlePrevButton}
                                                 className="question-prev-button btn">
                                                 Предыдущий
                                             </button>
@@ -360,4 +355,4 @@ class Questions extends Component {
     }
 }
 
-export default Questions;
+export default observer(Questions);

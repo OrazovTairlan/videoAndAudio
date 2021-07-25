@@ -7,7 +7,6 @@ const Timer = props => {
     let [minutesFormatted, setMinutesFormatted] = useState("");
     useEffect(() => {
         let myInterval = setInterval(() => {
-            console.log(minutesState, secondsState);
             if (secondsState > 0) {
                 setSeconds(secondsState - 1);
             }

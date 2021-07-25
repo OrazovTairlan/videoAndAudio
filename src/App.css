@@ -634,6 +634,7 @@ a {
     display: flex;
     align-items: center;
 }
+
 .devices-check {
     position: absolute;
     right: 0;
@@ -682,6 +683,7 @@ a {
     flex-direction: column;
     align-items: center;
 }
+
 .devices-relative {
     position: relative;
     margin-bottom: 20px;
@@ -872,6 +874,20 @@ a {
     border: 1px solid #CACACA;
     padding: 12px 20px 54px;
     margin-top: 20px;
+}
+
+.question-answer-text-marked {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 140%;
+    /* identical to box height, or 17px */
+
+
+    /* Семинар */
+
+    color: #37B688;
 }
 
 .question-title {

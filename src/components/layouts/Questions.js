@@ -86,6 +86,7 @@ class Questions extends Component {
     }
 
     handleNextButton = () => {
+        this.deleteAllDatasetAttribCheckedInput();
         this.handleNextQuestion();
     }
 
@@ -108,11 +109,15 @@ class Questions extends Component {
         this.addDatasetAttribInput(e);
         if (this.isFilledAnswer()) {
             this.setState(state => ({...state}));
+            Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
+            console.log(toJS(Store.questions));
             return;
         }
         this.handleProgressBar();
         this.handlePercentAnswers();
+        console.log(toJS(Store.questions));
         Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
+        console.log(toJS(Store.questions));
         // this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
     }
 
@@ -196,6 +201,7 @@ class Questions extends Component {
 
     handlePrevButton = () => {
         if (!this.isFirstQuestion()) {
+            this.deleteAllDatasetAttribCheckedInput();
             this.handlePrevQuestion();
         }
     }
@@ -268,6 +274,7 @@ class Questions extends Component {
                                                 <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
                                                            data-value={`${item.answerText}`}
+                                                           checked
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
                                                     <span className="question-answer-text"
@@ -291,7 +298,7 @@ class Questions extends Component {
                                                 </>
                                             }
                                         </div>
-                                    )
+                                    );
                                 })}
                             </div>
                             <div className="question-navigation">

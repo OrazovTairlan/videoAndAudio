@@ -376,6 +376,9 @@ a {
     background: #F4F4F4;
     box-shadow: 0px 1px 0px rgba(0, 0, 0, 0.25);
 }
+.active-header {
+    color: #37B688;
+}
 
 .header-inner {
     padding: 20px 39px;

@@ -22,7 +22,7 @@ class Store {
             RoleId: "5d5b8590cc091303c4acfb10",
             Password: "12345678"
         }
-        const result = await axios.post("/api/authentication/Login", data);
+        const result = await axios.post("https://cors-anywhere.herokuapp.com/https://univer.curs.kz/api/authentication/Login", data);
         axios.defaults.headers.common["Authorization"] = "Bearer " + result.data.token;
     }
 

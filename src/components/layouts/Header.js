@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import "../../App.css";
+import Store from "../../store/store";
+import {observer} from "mobx-react";
 
 class Header extends Component {
     render() {
@@ -20,15 +22,15 @@ class Header extends Component {
                         </div>
                         <div className="header-main-subtitle">
                             <ul className="header-main-subtitle__stages">
-                                <li className="header-main-subtitle-list active-list">
+                                <li className={`header-main-subtitle-list ${Store.currentComponent == "Introduction" ? "active-list" : ""}`}>
                                     Ознакомление
                                 </li>
                                 <img src="../../images/header-main-arrow.svg" className="list-arrow"/>
-                                <li className="header-main-subtitle-list">
+                                <li className={`header-main-subtitle-list ${Store.currentComponent == "Devices" ? "active-list" : ""}`}>
                                     Проверка компьютера
                                 </li>
                                 <img src="../../images/header-main-arrow.svg" className="list-arrow"/>
-                                <li className="header-main-subtitle-list">
+                                <li className={`header-main-subtitle-list ${Store.currentComponent == "Description" ? "active-list" : ""}`}>
                                     Начало экзамена
                                 </li>
                             </ul>
@@ -40,4 +42,4 @@ class Header extends Component {
     }
 }
 
-export default Header;
+export default observer(Header);

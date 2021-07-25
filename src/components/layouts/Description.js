@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Timer from "./Timer";
 import Store from "../../store/store";
 import {observer} from "mobx-react";
+import TimerDescription from "./TimerDescription";
 
 class Description extends Component {
     state = {
@@ -50,7 +51,7 @@ class Description extends Component {
                         </div>
                         <div class="right-content-timer">
                             {/* eslint-disable-next-line react/jsx-no-undef */}
-                            <Timer minutes="10" seconds="0" update={this.handleDisabledButton}/>
+                            <TimerDescription hours = "1" minutes="10" seconds="0" update={this.handleDisabledButton}/>
                         </div>
                         <div className="right-content-button-next">
                             <button disabled={false}

@@ -5,6 +5,8 @@ import TimerQuestion from "./TimerQuestion";
 import {observer} from "mobx-react";
 import Store from "../../store/store";
 import {toJS} from "mobx";
+import {Dialog} from "@material-ui/core";
+import DialogConfirm from "./DialogConfirm";
 
 class Questions extends Component {
     data = [
@@ -80,8 +82,8 @@ class Questions extends Component {
         checked: false,
         completedQuestionCopy: [],
         count: 0,
-        progressBarCount: 0
-
+        progressBarCount: 0,
+        open: false
     }
 
     handleNextButton = () => {
@@ -228,6 +230,16 @@ class Questions extends Component {
         this.setState({answerCount: value});
     }
 
+    handleClose = () => {
+        this.setState({open: false});
+    }
+
+    handleOpen = () => {
+        this.setState({open: true});
+    }
+    handleConfirmClose = () => {
+        this.setState({open: false});
+    }
 
     handleNextQuestion = () => {
         const {currentQuestion} = this.state;
@@ -348,7 +360,7 @@ class Questions extends Component {
                                             </button>
                                         </div>
                                         <div className="question-next">
-                                            <button className="question-next-button btn">
+                                            <button className="question-next-button btn" onClick={this.handleOpen}>
                                                 Завершить
                                             </button>
                                         </div>
@@ -402,6 +414,15 @@ class Questions extends Component {
                         </div>
                     </div>
                 </div>
+                <button onClick={this.handleOpen}>Кнопка</button>
+                <Dialog
+                    open={this.state.open}
+                    onClose={this.handleClose}
+                    aria-labelledby="alert-dialog-title"
+                    aria-describedby="alert-dialog-description"
+                >
+                    <DialogConfirm handleClose={this.handleClose} handleConfirmClose={this.handleConfirmClose}/>
+                </Dialog>
             </div>
         );
     }

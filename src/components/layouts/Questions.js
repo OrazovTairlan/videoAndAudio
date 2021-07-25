@@ -377,15 +377,25 @@ class Questions extends Component {
                             <div class="question-table-nav">
                                 <ul class="question-items">
                                     {this.data.map((item, index) => {
-                                        return (
-                                            <li className="question-item not-completed-question-navigation"
-                                                data-id={`${index + 1}`}>
-                                                <button className="question-item-button"
-                                                        onClick={() => this.setState({currentQuestion: index})}>
-                                                    {index + 1}
-                                                </button>
-                                            </li>
-                                        );
+                                        const {completedQuestion} = this.state;
+                                        {
+                                            return completedQuestion.filter((item) => item == index).length > 0 ?
+                                                <li className="question-item completed-question-navigation"
+                                                    data-id={`${index + 1}`}>
+                                                    <button className="question-item-button"
+                                                            onClick={() => this.setState({currentQuestion: index})}>
+                                                        {index + 1}
+                                                    </button>
+                                                </li> :
+                                                <li className="question-item not-completed-question-navigation"
+                                                    data-id={`${index + 1}`}>
+                                                    <button className="question-item-button"
+                                                            onClick={() => this.setState({currentQuestion: index})}>
+                                                        {index + 1}
+                                                    </button>
+                                                </li>
+                                        }
+
                                     })}
                                 </ul>
                             </div>

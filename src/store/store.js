@@ -10,6 +10,7 @@ class Store {
     showButton = true;
     count = 0;
     questions = {};
+    completedQuestions = [];
 
     constructor() {
         makeAutoObservable(this);
@@ -22,7 +23,7 @@ class Store {
             Password: "12345678"
         }
         const result = await axios.post("/api/authentication/Login", data);
-        axios.defaults.headers.common["Authorization"] = result.data.token;
+        axios.defaults.headers.common["Authorization"] = "Bearer " + result.data.token;
     }
 
     handleSubmitPush = async (data) => {
@@ -86,12 +87,9 @@ class Store {
     };
     getDescription = async () => {
         const result = await axios({
-                method: "get",
-                url: "https://dashboard.curs.kz:8023/api/Tests/Info?id=120521",
-                headers: {'Access-Control-Allow-Origin': "*"},
-                mode: 'cors'
-            })
-        ;
+            method: "get",
+            url: "https://cors-anywhere.herokuapp.com/https://dashboard.curs.kz:8023/api/Tests/Info?id=120521",
+        });
         console.log(result);
     }
 }

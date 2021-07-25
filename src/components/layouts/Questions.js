@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import Timer from "./Timer";
 import {v4 as uuidv4} from "uuid";
 import _ from "lodash";
 import TimerQuestion from "./TimerQuestion";
@@ -100,30 +99,53 @@ class Questions extends Component {
             this.deleteDatasetAttribInput(e);
             this.handlePercentAnswersBack();
             this.handleProgressBarBack();
+            this.handleCompletedQuestions();
             // this.setState({[currentQuestion]: {}});
-            Store.questions = {...Store.questions, [currentQuestion]: {}}
-            console.log(toJS(Store.questions));
+            Store.questions = {...Store.questions, [currentQuestion]: {}};
+            this.deleteCompletedQuestions();
+            // const filteredArray = [...Store.completedQuestions.filter((item) => item != currentQuestion)];
+            // Store.completedQuestions = [...filteredArray];
             return;
         }
         this.deleteAllDatasetAttribCheckedInput(); // здесь добавляем атрибут
         this.addDatasetAttribInput(e);
         if (this.isFilledAnswer()) {
             this.setState(state => ({...state}));
+            this.handleCompletedQuestions();
             Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
-            console.log(toJS(Store.questions));
+            // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
             return;
         }
         this.handleProgressBar();
         this.handlePercentAnswers();
-        console.log(toJS(Store.questions));
+        this.handleCompletedQuestions();
         Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
-        console.log(toJS(Store.questions));
+        // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
         // this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
+    }
+
+    handleCompletedQuestions = () => {
+        const {completedQuestion} = this.state;
+        const uniqArray = _.uniq([...completedQuestion, this.state.currentQuestion]);
+        this.setState({completedQuestion: [...uniqArray]});
+    }
+
+
+    deleteCompletedQuestions = () => {
+        const {completedQuestion} = this.state;
+        const uniqArray = _.uniq([...completedQuestion]);
+        const filteredArray = uniqArray.filter((item) => item != this.state.currentQuestion);
+        this.setState({completedQuestion: filteredArray});
     }
 
     handleProgressBar = () => {
         const progressBarActive = document.querySelector(".question-progress-bar-active");
         const value = (Number(this.state.progressBarCount) + Math.round(100 / this.data.length));
+        if (this.state.completedQuestion.length == this.data.length - 1) {
+            this.setState({progressBarCount: "100"});
+            progressBarActive.style.width = 100 + "%";
+            return;
+        }
         this.setState({progressBarCount: value});
         progressBarActive.style.width = value + "%";
     }
@@ -131,6 +153,11 @@ class Questions extends Component {
     handleProgressBarBack = () => {
         const progressBarActive = document.querySelector(".question-progress-bar-active");
         const value = (Number(this.state.progressBarCount) - Math.round(100 / this.data.length));
+        if (this.state.completedQuestion.length == 1) {
+            this.setState({progressBarCount: "0"});
+            progressBarActive.style.width = 0 + "%";
+            return;
+        }
         this.setState({progressBarCount: value});
         progressBarActive.style.width = value + "%";
     }
@@ -181,9 +208,10 @@ class Questions extends Component {
     }
 
     handlePercentAnswers = () => {
+        console.log(toJS(Object.keys(Store.questions).length), this.data.length);
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount + Math.round(Number(100 / this.data.length))) + " %";
-        if (Store.questions.length == this.data.length) {
+        if (this.state.completedQuestion.length == this.data.length - 1) {
             this.setState({answerCount: "100 %"});
             return;
         }
@@ -193,7 +221,7 @@ class Questions extends Component {
     handlePercentAnswersBack = () => {
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount - Math.round(Number(100 / this.data.length))) + " %";
-        if (Store.questions.length == 0) {
+        if (this.state.completedQuestion.length == 1) {
             this.setState({answerCount: "0 %"});
             return;
         }
@@ -209,8 +237,8 @@ class Questions extends Component {
 
     handlePrevButton = () => {
         if (!this.isFirstQuestion()) {
-            this.deleteAllDatasetAttribCheckedInput();
             this.handlePrevQuestion();
+            this.deleteAllDatasetAttribCheckedInput();
         }
     }
     isFirstQuestion = () => {

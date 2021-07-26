@@ -108,6 +108,7 @@ class Questions extends Component {
             this.deleteCompletedQuestions();
             // const filteredArray = [...Store.completedQuestions.filter((item) => item != currentQuestion)];
             // Store.completedQuestions = [...filteredArray];
+            Store.questionArray = Store.questionArray.filter((item) => item.questionId != Store.questionsData.questions[currentQuestion].id);
             return;
         }
         this.deleteAllDatasetAttribCheckedInput(); // здесь добавляем атрибут
@@ -221,7 +222,7 @@ class Questions extends Component {
         console.log(toJS(Object.keys(Store.questions).length), this.data.length);
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount + Math.round(Number(100 / this.data.length))) + " %";
-        if (this.state.completedQuestion.length == this.data.length - 1) {
+        if (Store.questionArray.length == Store.questionsData.questions.length - 1) {
             this.setState({answerCount: "100 %"});
             return;
         }
@@ -231,7 +232,7 @@ class Questions extends Component {
     handlePercentAnswersBack = () => {
         const answerCount = Number(this.state.answerCount.split(" %")[0]);
         const value = (answerCount - Math.round(Number(100 / this.data.length))) + " %";
-        if (this.state.completedQuestion.length == 1) {
+        if (Store.questionArray.length == 1) {
             this.setState({answerCount: "0 %"});
             return;
         }

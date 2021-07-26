@@ -768,6 +768,7 @@ a {
 
     color: #636F81;
 }
+
 .description-common-title {
     font-family: Open Sans;
     font-style: normal;
@@ -780,6 +781,7 @@ a {
     color: #636F81;
     margin-bottom: 7px;
 }
+
 .description-common-content {
     font-family: Open Sans;
     font-style: normal;
@@ -790,6 +792,12 @@ a {
 
 
     color: #3D3D3D;
+}
+
+.center {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 50%);
 }
 
 .left-content-teacher-name {
@@ -803,6 +811,7 @@ a {
 
     color: #3D3D3D;
 }
+
 .left-content-item {
     margin-bottom: 32px;
 }

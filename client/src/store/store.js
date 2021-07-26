@@ -8,6 +8,7 @@ class Store {
     Description = "Description";
     currentComponent = "Introduction";
     showButton = true;
+    questionArray = [];
     count = 0;
     questions = {};
     completedQuestions = [];

@@ -18,7 +18,6 @@ class Description extends Component {
     async componentDidMount() {
         await Store.auth();
         await Store.getDescription();
-        await Store.getQuestions();
     }
 
     render() {

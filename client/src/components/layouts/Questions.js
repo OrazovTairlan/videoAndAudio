@@ -5,7 +5,7 @@ import TimerQuestion from "./TimerQuestion";
 import {observer} from "mobx-react";
 import Store from "../../store/store";
 import {toJS} from "mobx";
-import {Dialog} from "@material-ui/core";
+import {CircularProgress, Dialog} from "@material-ui/core";
 import DialogConfirm from "./DialogConfirm";
 
 class Questions extends Component {
@@ -83,7 +83,8 @@ class Questions extends Component {
         completedQuestionCopy: [],
         count: 0,
         progressBarCount: 0,
-        open: false
+        open: false,
+        loading: true
     }
 
     handleNextButton = () => {
@@ -112,8 +113,13 @@ class Questions extends Component {
         this.deleteAllDatasetAttribCheckedInput(); // здесь добавляем атрибут
         this.addDatasetAttribInput(e);
         if (this.isFilledAnswer()) {
+            console.log(e.target.dataset.id);
             this.setState(state => ({...state}));
             this.handleCompletedQuestions();
+            Store.questionArray = _.uniqBy([{
+                questionId: Store.questionsData.questions[currentQuestion].id,
+                answerId: e.target.dataset.id
+            }], "questionId");
             Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
             // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
             return;
@@ -121,6 +127,10 @@ class Questions extends Component {
         this.handleProgressBar();
         this.handlePercentAnswers();
         this.handleCompletedQuestions();
+        Store.questionArray = _.uniqBy([{
+            questionId: Store.questionsData.questions[currentQuestion].id,
+            answerId: e.target.dataset.id
+        }], "questionId");
         Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
         // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
         // this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
@@ -131,8 +141,6 @@ class Questions extends Component {
         const uniqArray = _.uniq([...completedQuestion, this.state.currentQuestion]);
         this.setState({completedQuestion: [...uniqArray]});
     }
-
-
     deleteCompletedQuestions = () => {
         const {completedQuestion} = this.state;
         const uniqArray = _.uniq([...completedQuestion]);
@@ -274,76 +282,82 @@ class Questions extends Component {
         this.setState({currentQuestion: prevQuestion});
     }
 
+    async componentDidMount() {
+        await Store.getQuestions();
+        this.setState({loading: false});
+    }
+
     render() {
         const {currentQuestion} = this.state;
-        return (
-            <div className="question">
-                <header class="question-header">
-                    <div class="question-title">
-                        Физика
+        console.log(toJS(Store.questionArray));
+        {
+            return this.state.loading == false ? <div className="question">
+                <header className="question-header">
+                    <div className="question-title">
+                        {Store.questionsData.title}
                     </div>
-                    <div class="question-statistics">
-                        <div class="question-statistics-answer">
-                            <span class="question-statistics-answer-suptext">Есть ответы:</span>
-                            <span class="question-statistics-answer-subtext">{this.state.answerCount}</span>
+                    <div className="question-statistics">
+                        <div className="question-statistics-answer">
+                            <span className="question-statistics-answer-suptext">Есть ответы:</span>
+                            <span className="question-statistics-answer-subtext">{this.state.answerCount}</span>
                         </div>
-                        <div class="question-statistics-answer-line">
+                        <div className="question-statistics-answer-line">
 
                         </div>
                         <div className="question-statistics-count">
                             <span className="question-statistics-count-suptext">Есть ответы:</span>
-                            <TimerQuestion minutes="11" seconds="0"/>
+                            <TimerQuestion minutes={String(toJS(Store.questionsData.duration))} seconds="0"/>
                         </div>
                     </div>
                 </header>
                 <hr className="question-progress-bar-top-hr"/>
-                <div class="question-progress-bar">
-                    <div class="question-progress-bar-active">
+                <div className="question-progress-bar">
+                    <div className="question-progress-bar-active">
 
                     </div>
                 </div>
                 <hr className="question-progress-bar-bottom-hr"/>
-                <div class="question-main">
-                    <div class="question-count">
-                        Вопрос {currentQuestion + 1} из {this.data.length}
+                <div className="question-main">
+                    <div className="question-count">
+                        Вопрос {currentQuestion + 1} из {Store.questionsData.questions.length}
                     </div>
-                    <div class="question-main-content">
-                        <div class="question-left-content">
-                            <div class="question-description">
-                                <p class="question-description-text">
-                                    {this.data[currentQuestion].questionText}
+                    <div className="question-main-content">
+                        <div className="question-left-content">
+                            <div className="question-description">
+                                <p className="question-description-text">
+                                    {Store.questionsData.questions[currentQuestion].name}
                                 </p>
                             </div>
-                            <div class="question-answer">
-                                {this.data[currentQuestion].answerOptions.map((item) => {
+                            <div className="question-answer">
+                                {Store.questionsData.questions[currentQuestion].answers.map((item) => {
                                     return (
                                         <div className="question-answer-variant">
-                                            {Store.questions[currentQuestion] != undefined ? Store.questions[currentQuestion][item.id] == true ?
+                                            {Store.questions[currentQuestion] != undefined ? Store.questions[currentQuestion][item.id] ?
                                                 <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
-                                                           data-value={`${item.answerText}`}
+                                                           data-value={`${item.name}`}
                                                            data-checked="checked"
                                                            checked
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
                                                     <span className="question-answer-text"
-                                                          data-id={`${item.id}`}>{item.answerText}</span>
+                                                          data-id={`${item.id}`}>{item.name}</span>
                                                 </> :
                                                 <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
-                                                           data-value={`${item.answerText}`}
+                                                           data-value={`${item.name}`}
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
                                                     <span className="question-answer-text"
-                                                          data-id={`${item.id}`}>{item.answerText}</span>
+                                                          data-id={`${item.id}`}>{item.name}</span>
                                                 </>
                                                 : <>
                                                     <input type="radio" data-id={`${item.id}`} name="answer"
-                                                           data-value={`${item.answerText}`}
+                                                           data-value={`${item.name}`}
                                                            onClick={this.handleAnswer}
                                                            className="question-answer-input"/>
                                                     <span className="question-answer-text"
-                                                          data-id={`${item.id}`}>{item.answerText}</span>
+                                                          data-id={`${item.id}`}>{item.name}</span>
                                                 </>
                                             }
                                         </div>
@@ -351,7 +365,7 @@ class Questions extends Component {
                                 })}
                             </div>
                             <div className="question-navigation">
-                                {currentQuestion >= this.data.length - 1 || this.state.completedQuestion.length == this.data.length ? (
+                                {Store.questionArray.length == Store.questionsData.questions.length || Store.questionsData.questions.length - 1 == currentQuestion ? (
                                     <>
                                         <div className="question-prev">
                                             <button onClick={this.handlePrevButton}
@@ -385,10 +399,10 @@ class Questions extends Component {
                                 }
                             </div>
                         </div>
-                        <div class="question-right-content">
-                            <div class="question-table-nav">
-                                <ul class="question-items">
-                                    {this.data.map((item, index) => {
+                        <div className="question-right-content">
+                            <div className="question-table-nav">
+                                <ul className="question-items">
+                                    {Store.questionsData.questions.map((item, index) => {
                                         const {completedQuestion} = this.state;
                                         {
                                             return completedQuestion.filter((item) => item == index).length > 0 ?
@@ -423,8 +437,8 @@ class Questions extends Component {
                 >
                     <DialogConfirm handleClose={this.handleClose} handleConfirmClose={this.handleConfirmClose}/>
                 </Dialog>
-            </div>
-        );
+            </div> : <div className="center"><CircularProgress/></div>
+        }
     }
 }
 

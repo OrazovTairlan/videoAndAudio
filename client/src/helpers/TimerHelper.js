@@ -4,9 +4,9 @@ export default function secondsToHms(d) {
     var m = Math.floor(d % 3600 / 60);
     var s = Math.floor(d % 3600 % 60);
 
-    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
-    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
-    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+    var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : false;
+    var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : false;
+    var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : false;
     return [hDisplay, mDisplay, sDisplay];
 }
 console.log(secondsToHms(3345))

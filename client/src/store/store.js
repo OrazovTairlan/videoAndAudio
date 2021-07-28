@@ -23,7 +23,10 @@ class Store {
         const result = await axios.post("/api/auth/login");
         console.log(result.data);
         axios.defaults.headers.common["Authorization"] = "Bearer " + result.data;
+        return result.status;
     }
+
+
 
     handleSubmitPush = async (data) => {
         const dataForm = new FormData();

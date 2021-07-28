@@ -3,10 +3,12 @@ import Timer from "./Timer";
 import Store from "../../store/store";
 import {observer} from "mobx-react";
 import TimerDescription from "./TimerDescription";
+import {CircularProgress, Dialog} from "@material-ui/core";
 
 class Description extends Component {
     state = {
-        disabledButton: true
+        disabledButton: true,
+        loading: true
     }
     handleDisabledButton = () => {
         const timerBtn = document.querySelector(".right-content-button");
@@ -18,6 +20,7 @@ class Description extends Component {
     async componentDidMount() {
         await Store.auth();
         await Store.getDescription();
+        this.setState({loading: false});
     }
 
     render() {
@@ -26,8 +29,8 @@ class Description extends Component {
         const dateStartLast = new Date(Store.descriptionsData.dateOfPublication).toLocaleString().split(", ")[1];
         const dateEndFirst = new Date(Store.descriptionsData.dateOfExpiration).toLocaleString().split(", ")[0];
         const dateEndLast = new Date(Store.descriptionsData.dateOfExpiration).toLocaleString().split(", ")[1];
-        return (
-            <div className="description">
+        {
+            return this.state.loading == false ? <div className="description">
                 <div class="description-suptitle">Начало экзамена</div>
                 <div class="description-subtitle">{Store.descriptionsData.title}</div>
                 <div class="description-content">
@@ -49,7 +52,8 @@ class Description extends Component {
                         </div>
                         <br/>
                         <div class="left-content-item">
-                            <div className="left-content-count-description description-common-title">Длительность теста:
+                            <div className="left-content-count-description description-common-title">Длительность
+                                теста:
                             </div>
                             <div
                                 className="left-content-duration description-common-content">{Store.descriptionsData.duration} мин
@@ -85,7 +89,7 @@ class Description extends Component {
                             До начала тестирования:
                         </div>
                         <div class="right-content-timer">
-                            <TimerDescription time={Store.descriptionsData.countDown}
+                            <TimerDescription time="300"
                                               update={this.handleDisabledButton}/>
                         </div>
                         <div className="right-content-button-next">
@@ -100,8 +104,8 @@ class Description extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
-        );
+            </div> : <div className="center"><CircularProgress/></div>
+        }
     }
 }
 

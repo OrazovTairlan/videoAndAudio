@@ -387,6 +387,7 @@ a {
     align-items: center;
     width: 100%;
     max-width: 1152px;
+    min-height: 110px;
     justify-content: space-between;
 }
 
@@ -417,8 +418,11 @@ a {
 }
 
 .header-main {
+    position: absolute;
     display: flex;
     text-align: center;
+    left: 50%;
+    transform: translateX(-50%);
     flex-direction: column;
 }
 
@@ -642,10 +646,23 @@ a {
 .devices-check {
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 7px;
     padding: 5px;
     background: #37B688;
     border-radius: 50%;
+}
+
+.devices-check-error {
+    position: absolute;
+    right: 0;
+    bottom: 7px;
+    padding: 5px;
+    background: #E3575D;
+    border-radius: 50%;
+}
+
+.devices-check img {
+    display: flex;
 }
 
 .devices-repeat-img {
@@ -673,8 +690,12 @@ a {
     margin-bottom: 20px;
 }
 
+.devices-item__image-processing {
+    border-radius: 50%;
+    border: 3px solid #636F81;
+}
+
 .devices-item__image {
-    margin-bottom: 20px;
     border: 3px solid #37B688;
     border-radius: 50%;
 }
@@ -686,6 +707,40 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.devices-without-btn {
+    max-width: 105px;
+}
+
+.devices-error {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #E3575D;
+}
+
+.devices-item__image-error {
+    border: 3px solid #E3575D;
+    border-radius: 50%;
+}
+
+.devices-processing {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #636F81;
 }
 
 .devices-relative {
@@ -708,8 +763,23 @@ a {
     margin-bottom: 16px;
 }
 
+.devices-item__status-error {
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 12px;
+    line-height: 14px;
+    /* identical to box height */
+
+    text-align: center;
+
+    color: #E3575D;
+}
+
 .devices {
-    padding: 0px 344px 0 363px;
+    padding: 22px 344px 0 363px;
+    background: #EDEDEE;
+    border: 1px solid #CACACA;
 }
 
 .devices-row {
@@ -752,6 +822,7 @@ a {
 }
 
 .btn {
+    transition: all 0.1s;
     cursor: pointer;
 }
 
@@ -1291,4 +1362,74 @@ a {
     width: 18px;
     height: 18px;
     transform: translate(-50%, -50%);
+}
+
+/*Dialog Confirm*/
+.dialog-confirm {
+    background: #EDEDEE;
+    border: 1px solid #CACACA;
+    padding: 41px 95px 30px;
+    width: 100%;
+    max-width: 592px;
+    text-align: center;
+}
+.btn:hover {
+    opacity: 0.5;
+}
+.dialog-title {
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 145%;
+    /* or 26px */
+
+    text-align: center;
+
+    color: #3D3D3D;
+    margin-bottom: 58px;
+}
+
+.dialog-agree-button {
+    background: #37B688;
+    border-radius: 5px;
+    font-family: Open Sans;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 22px;
+    cursor: pointer;
+    padding: 14px 153px;
+    /* identical to box height, or 137% */
+
+    /* White */
+
+    color: #FFFFFF;
+    border: none;
+    margin-bottom: 18px;
+}
+
+.dialog-disagree-button {
+    font-family: Open Sans;
+    cursor: pointer;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 22px;
+    /* identical to box height, or 137% */
+
+    /* Семинар */
+
+    color: #37B688;
+    padding: 14px 147px;
+    background: transparent;
+    border: none;
+}
+
+/*Media*/
+/*Header*/
+@media only screen and (max-width: 1100px) {
+    .header-logo {
+        display: none;
+    }
 }

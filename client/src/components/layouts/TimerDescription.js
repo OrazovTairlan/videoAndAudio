@@ -25,6 +25,7 @@ const TimerDescription = props => {
     const [secondsState, setSeconds] = useState(Number(secondsFormat));
     let [minutesFormatted, setMinutesFormatted] = useState(String(minutesState));
     let [hoursFormatted, setHoursFormatted] = useState(String(hoursState));
+    console.log(hoursState, minutesState, secondsState)
     useEffect(() => {
         let myInterval = setInterval(() => {
             console.log(hoursState, minutesState, secondsState)

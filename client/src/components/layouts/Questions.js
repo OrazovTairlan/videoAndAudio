@@ -104,7 +104,13 @@ class Questions extends Component {
             this.handleProgressBarBack();
             this.handleCompletedQuestions();
             // this.setState({[currentQuestion]: {}});
-            Store.questions = {...Store.questions, [currentQuestion]: {}};
+            Store.questions = {
+                ...Store.questions,
+                [currentQuestion]: {
+                    questionsId: Store.questionsData.questions[currentQuestion].id,
+                    answerId: e.target.dataset.id
+                }
+            };
             this.deleteCompletedQuestions();
             // const filteredArray = [...Store.completedQuestions.filter((item) => item != currentQuestion)];
             // Store.completedQuestions = [...filteredArray];
@@ -122,7 +128,7 @@ class Questions extends Component {
                 answerId: e.target.dataset.id
             }], "questionId");
             Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
-            // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
+            Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
             return;
         }
         this.handleProgressBar();
@@ -133,8 +139,8 @@ class Questions extends Component {
             answerId: e.target.dataset.id
         }], "questionId");
         Store.questions = {...Store.questions, [currentQuestion]: {[e.target.dataset.id]: true}};
-        // Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
-        // this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
+        Store.completedQuestions = [...Store.completedQuestions, [currentQuestion]];
+        this.setState({[currentQuestion]: {[e.target.dataset.id]: true}});
     }
 
     handleCompletedQuestions = () => {
@@ -290,7 +296,7 @@ class Questions extends Component {
 
     render() {
         const {currentQuestion} = this.state;
-        console.log(toJS(Store.questionArray));
+        console.log(Object.values(toJS(Store.questions)));
         {
             return this.state.loading == false ? <div className="question">
                 <header className="question-header">
